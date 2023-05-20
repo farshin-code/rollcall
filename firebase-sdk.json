@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "rollcall-adri",
+  "private_key_id": "fad8af81c223058d7dc5a02fe41c2d40e0e4ed25",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDWuU/bZKu3wvMn\nVByK8YBhPtkWXw9DWF8q2oTqlhmyPhGEpmxNW6ELxV40KYntK1IYq5gQIV6phPO2\nT6nxyA3i3sqwBRP96WFLKz7h3+5wMZiO5Gw+PTmx9gJfQIHZ4+9abGi4IMFYLv25\nF/AZeSHJnogRpiIDCeMEeWeQqBROUCeyiSDV/avmc7sEEQUfSDw42sOltXJjsDyx\naZ8XxKOgzkDzoQVcmAiOK39z003tkAzbVsDNMq3ozeJ+OuJn3XeCY7m+l8102nxY\nILl9G3NnczFIBlGTWVofJYAPmNA2PRcCW7LJfs9rX+fI4qFsnmiBbRNBeDqEmIIo\nQbFKzMxVAgMBAAECggEAWXCuQVoxJuW3B+pCy2NmENuvbGCjSG+OkJieJeLpCDRP\ncrwpv51Lu032e+7Ti21wkGMlf46O0jjVlVqglNw6YIZh0ikDV0/3nWqBkm+G78fQ\n3rBqIBC7sBOjkE6b6AlIQZeHlS7bqmJEgG1mrw2kU8nLruJPJ4nePJZfW8OPVcDM\n0+2uzECQqwGXUF0XSIRcdtlMVYCKak8mY4CJLvU5bgqGwglkdf1rIcVt4AoILquM\n/qMrnoSRXNSdX+PkZFUAXsqfzde2tgqv4PEubadwH3Sm7Sh4f67k2xooHwa1tZbs\nnzys5NSq+e+N1UOX0cdc7BRF6PWvK61MNTH4I39MnwKBgQD6PjdCky92F2Z9VBzn\nkKKKswDSBaQIADD0ZGPhnHpgzai7fQLtSHxOQqPBREZgZffta6Q2BAe95xewefHr\nDU+de7Kbb57lOInFsnn3L/KzNVPTx5cPmhCTyLdrCoGrtVokEdDHU9uq5LW7WN80\nv0LFU/xqzArfl/J532b4NFQKYwKBgQDbqei+3o7dJn4dKSwGSQGdZ86dHnoxzyAq\niy3hTz+Cq8w2tTyHA68o4/FD6d1qXEQ/BN0qoieAbjaOjVue56To5+2TggZfiaLg\nupA3SU+TtCvcvdUBYyuKAWuLFuQcblmb6rFbsDcUUMZf85gTdTwaR+XQp4vEI9ZV\ndZSFtjfv5wKBgQCayr9t/BOgrcrk/ZG/n9UbjKyWPY0AsfWWRz8NgLimhrC4ARU9\nZ9gUpN4cn7oUyR56i1oRW57aVkduD5CYgCxeUvThd0NHsRhv5P3S7KLpPbRzzQNh\nUECu2bqziNU7PLvckfSeR/4akMzlbYzsWN7ZpyD9gue69Ye04X8VS3Es1wKBgGjv\nxmxITd+AIAc2P/3QqqDTknSktqNM24T3cDeOcDywbaJE+mFVdTwHiJ50/n1tDn08\niZtwU4abIB0Bkp9a8gEBqxEosHq7eb/54CNJNmbNT5boaPV8trP68bFEgjzCyrQd\nbhTrHaTq4Zm8+Q1yl//GEReYssBEjoPM4+LspdRJAoGBAPLznkrXVlYsyFuMrePM\ny+K5xqmBt14e9SqiSU8v0PLEpbHsy/7oBE2j/RnuOmecMIHS7YZ54UncJxtnwAUb\ns8C8UeTJT6tDVK07Dv34ozytV2Bywk8/+5C4v1It45un24O78R8GDMdneqW558BX\n131XLxJnxqlCH6M8TtjMxsHt\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-q62ow@rollcall-adri.iam.gserviceaccount.com",
+  "client_id": "114389896954618748668",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-q62ow%40rollcall-adri.iam.gserviceaccount.com"
+}

@@ -1,0 +1,21 @@
+    {% for item in filterResult %}        
+    
+    <tbody>
+        <tr>
+          <th scope="row"><input type="checkbox" onchange="selectChange()" class="form-check-input mt-2 tblCheck" id="{{item['_id']}}"/></th>
+          <td>{{item['user'][0]['name']}} </td>
+          <td>{{item['date_time']}}</td>
+          <td>{{item['registeredBy'][0]['name']}}</td>
+          <td><button name="{{item['_id']}}" class="btn rounded border-0" onclick="deleteClick(this.name)"><img src="/static/deleteIcon.png" class="rounded-circle icon-size" ></button></td>
+          <style>
+            .icon-size{
+
+            width:30px;
+            height:30px;
+            
+          }
+          </style>
+        </tr>
+      </tbody>
+      
+    {% endfor %}

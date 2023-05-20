@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- datetime picker-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <!--bootstrap-->
+    
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Adri - rollcall</title>
+</head>
+
+<body>
+    
+    <!--start of the page-->
+    <div class="container">
+
+        <!--NavBar-->
+        <nav class="navbar navbar-expand-lg rounded-pill bg-warning">
+            <div class="container-fluid">
+                <a class="navbar-brand text-dark" href="#">
+
+                    <i class="bi bi-calendar-check" style="font-size: 24px;"></i>
+                    <b>Adri - RollCall</b>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link  text-white border rounded-pill border-top-0 m-1 " aria-current="page"
+                                href="{{url_for('new_person')}}">New
+                                Person</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white border rounded-pill border-top-0 m-1" aria-current="page" href="{{url_for('sign')}}"
+                             >Enter/Exit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white border rounded-pill border-top-0 m-1"
+                                href="#">Lists/Reports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white border rounded-pill border-top-0 m-1">Analytics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white border rounded-pill border-top-0 m-1">Admin Panel</a>
+                        </li>
+                        
+                    </ul>
+                    <ul class="navbar-nav ms-auto ">
+                        <li class="nav-item">
+                            <a class="nav-link text-primary border rounded-pill border-top-0 m-1" href="{{url_for('logout')}}">Logout</a>
+                        </li>
+                    </ul>
+
+                    
+                </div>
+
+            </div>
+
+
+        </nav>
+
+        <!-- Modal definition -->
+        <div id="dialogYesNo" class="modal">
+            <div  class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4> Delete Data ...</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h6>The selected Data Will be permanently Deleted.</h6>
+                        <h6>Are You Sure?</h6>
+
+                    </div>
+
+                    <div class="modal-footer ">
+                        <button  type="button" class="btn btn-warning border">Yes</button>
+                        <button  type="button" class="btn  border">No</button>
+
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+        
+        <div id="waitingModal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-m">
+                <div class="modal-content">
+                    <div class="modal-header"><h6 style="margin:0;">Retrieving Data ...</h6></div>
+                    <div class="modal-body">
+                        
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--row - col-->
+        <div class="row border mt-2 rounded">
+            <div class="col-11  m-5 border rounded">
+                <div class="p-5">
+
+                    <form>
+                        <div class="input-group mb-3">
+                            
+                            <input type="checkbox" class="form-check-input mt-2" id="allCheck" checked>
+                            <label class="form-check-label mt-1" for="allCheck"><b>&nbsp;&nbsp; All People</b>&nbsp;&nbsp; </label>
+
+                            <span class="row mt-1"><b style="color:blue;">OR &nbsp;&nbsp;</b></span>
+                            
+                            <label for="ID" class="mt-1"><b>ID: &nbsp;&nbsp;</b>  </label>
+                            <input type="text" class="form-control" id="ID" name="id" disabled/>
+                            
+                            <span class="row mt-1"><b style="color:blue;">OR &nbsp;&nbsp;</b></span>
+                             
+                            <label for="email" class="mt-1"><b>Email / User Name: &nbsp;&nbsp;</b> </label>
+                            <input type="email" class="form-control" id="user" name="user" disabled>
+                        
+                        </div>
+
+                        <div class="input-group">
+                            <label for="datetime"><b>Start Date/Time:&nbsp;&nbsp;</b>   </label>
+                            <input id="datetime"  width="160" name="startDate" />&nbsp;&nbsp;
+                            <label for="datetime"><b>End Date/Time:&nbsp;&nbsp;</b>   </label>
+                            <input id="datetime2"  width="160" name="endDate" />
+                            &nbsp;&nbsp;
+                            <script>
+                                        
+                                let now = new Date();
+                                let hh = now.getHours().toString().padStart(2, '0');
+                                let mm = now.getMinutes().toString().padStart(2, '0');
+                                let dd = now.getDate().toString().padStart(2, '0');
+                                let mmIndex = now.getMonth() + 1;
+                                let mmStr = mmIndex.toString().padStart(2, '0');
+                                let yyyy = now.getFullYear().toString();
+
+                                let formattedDate = `${hh}:${mm} ${mmStr}/${dd}/${yyyy}`;
+                                
+                                
+
+                                $('#datetime').datetimepicker({ value: formattedDate });
+                                $('#datetime').datetimepicker({ uiLibrary: 'bootstrap', modal: true, footer: true });
+                                $('#datetime2').datetimepicker({ value: formattedDate });
+                                $('#datetime2').datetimepicker({ uiLibrary: 'bootstrap', modal: true, footer: true });
+
+
+
+                            </script>
+
+                        </div>
+                        <div class="input-group m-1 ms-auto">
+                            <ul class="navbar-nav ms-auto ">
+                                <li class="nav-item">
+                                    <button  type="submit" onclick="filterClick(event)" class="btn btn-warning">Filter</button>
+                                    <button  type="button" class="btn border"   onclick="modaltest()">Reset</button>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                    </form>
+
+
+                </div>
+
+            </div>
+            <div class="col m-5 d-flex justify-content-center align-items-center">
+                <div class="row" id="result">
+                    <script>
+                        var deleteDialogShow(id)
+                        var deleteClick = (id)=>{
+                           $('#dialogYesNo').modal('show')
+                            // if (document.getElementById(id).checked){
+                            //     window.alert(id)
+                            // }
+                            // else{
+                            //     window.alert("Select The Row to Confirm")
+                            // }
+                        }
+                        var selectChange=()=>{
+                            const checked = document.querySelectorAll('input[type="checkbox"]:checked')
+                            var selected = Array.from(checked).map(x=> x.id!='allCheck' ? x.id:null).filter(x => x!=null)
+                            if (selected.length >=2) {
+                                console.log(selected)
+                                document.getElementById('deleteSelected').style.visibility='visible'                                
+                            }
+                            else{
+                                console.log(selected)
+                                document.getElementById('deleteSelected').style.visibility='hidden'
+                                
+                            }
+                            //console.log(selected)
+                        }
+                      </script>
+                    <table class="table" style="width:78vw ;">
+
+                        <thead>
+                                                        
+                            <tr>
+                    
+                                <th scope="col" style="width: 10%;">Select</th>  
+                                <th scope="col" style="width: 30%;">Name</th>
+                                <th scope="col" style="width: 30%;">Date / Time</th>
+                                <th scope="col" style="width: 30%;">Registered By</th>
+                                <th scope="col" style="width: 30%;">Action</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody id="bodyOfList">
+                            
+                          </tbody>
+                        
+
+                    </table>
+
+                    <div class="row  border mt-2 p-1 rounded">
+                        <div class="col-3 ms-auto">
+                        
+                        <button class="btn btn-outline-warning btn-sm btn-block " style="visibility: hidden;display: inline-block;" id="deleteSelected">
+                            <b>Delete Selected</b>
+                        </button>
+                        </div>
+                    </div>
+
+                <div class="row">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    </div>
+
+    </div>
+
+    <script>
+
+        /////////////////////////////////////toggle 'disabled' 
+        var user = document.getElementById("user")
+        var ID = document.getElementById("ID")
+        user.addEventListener("input",function(){
+
+            console.log("input for user running")
+            if (user.value.length>0){
+                ID.disabled = true;
+            }
+            else{
+                ID.disabled=false;
+            }
+        })
+        
+        ID.addEventListener("input",function(){
+
+            console.log("input for ID running")
+            if (ID.value.length > 0){
+                user.disabled = true;
+            }
+            else{
+                user.disabled=false;
+            }
+        })
+
+        //checkbox 
+        var allcheck = document.getElementById("allCheck")
+        allcheck.addEventListener("change",()=>{
+            console.log( allcheck.checked)
+
+            if (allcheck.checked){
+                
+                document.getElementById('user').value="";
+                document.getElementById("ID").value="";
+                
+                console.log("checked")
+                document.getElementById('user').disabled =true;
+
+                document.getElementById("ID").disabled=true;
+            }
+            else
+            {
+            document.getElementById('user').value="";
+            document.getElementById("ID").value="";
+            
+            console.log("unchecked")
+            document.getElementById('user').disabled=false;
+            document.getElementById("ID").disabled=false;
+            }
+        })
+
+        var modaltest=()=>{
+
+            $('#waitingModal').modal('show')
+             setTimeout(() => {
+            $('#waitingModal').modal('hide')    
+             }, 5000);
+            
+            
+        }
+
+        var filterClick = (event)=>{
+
+
+            event.preventDefault()
+
+            $('#waitingModal').modal('show')
+
+            if (document.getElementById("allCheck").checked){
+
+                data = {
+                    'start_date' : document.getElementById('datetime').value,
+                    'end_date' : document.getElementById('datetime2').value,
+                    'id' : "ALL"
+                }
+                fetch('http://127.0.0.1:5000/query' , {
+                    method:'POST',
+                    body : JSON.stringify(data)
+
+                }).then(Response => Response.text()).then(result => {
+                    document.getElementById('bodyOfList').innerHTML= result
+                    $('#waitingModal').modal('hide')
+                }
+                    
+                )
+
+            }
+            else{
+                // verify id or username
+                if (document.getElementById('user').disabled){ //ID is the field :
+
+                    searchFor =  document.getElementById("ID").value
+                    fetch('http://127.0.0.1:5000/checkUserIdForQuery' , {
+                    method:'POST',
+                    body : JSON.stringify({'id':searchFor,user:'None'})
+
+                    }).then(Response => Response.json()).then(result => 
+                    {
+                    document.getElementById('result').innerHTML= JSON.stringify(result)
+                    }   
+                    )   
+                }else{
+
+                    searchFor =  document.getElementById("user").value
+                    fetch('http://127.0.0.1:5000/checkUserIdForQuery' , {
+                    method:'POST',
+                    body : JSON.stringify({'id':searchFor,'user':searchFor})
+
+                    }).then(Response => Response.json()).then(result => {
+                        
+                        if (result['invalidUserID'] == 'user'){
+
+                            document.getElementById('result').innerHTML = '<span style="background-color: red;color: yellow;" id="error">Invalid Email / User Name </span>' ;
+
+                        }else if (result['invalidUserID'] == 'ID'){
+
+                            document.getElementById('result').innerHTML = '<span style="background-color: red;color: yellow;" id="error">Invalid ID </span>';
+                        }else
+                        {
+                            document.getElementById('result').innerHTML = ''
+  
+                        }
+                        
+
+                    }                        
+                    )
+
+                }
+
+            }
+            
+            $('#waitingModal').modal('hide')
+        }
+        
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
