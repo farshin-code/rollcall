@@ -85,8 +85,8 @@
                     </div>
 
                     <div class="modal-footer ">
-                        <button  type="button" class="btn btn-warning border">Yes</button>
-                        <button  type="button" class="btn  border">No</button>
+                        <button  type="button" class="btn btn-warning border" id="btn-delete-yes">Yes</button>
+                        <button  type="button" class="btn  border" id="btn-delete-no">No</button>
 
                     </div>
                 </div>
@@ -116,60 +116,63 @@
                 <div class="p-5">
 
                     <form>
-                        <div class="input-group mb-3">
-                            
-                            <input type="checkbox" class="form-check-input mt-2" id="allCheck" checked>
-                            <label class="form-check-label mt-1" for="allCheck"><b>&nbsp;&nbsp; All People</b>&nbsp;&nbsp; </label>
-
-                            <span class="row mt-1"><b style="color:blue;">OR &nbsp;&nbsp;</b></span>
-                            
-                            <label for="ID" class="mt-1"><b>ID: &nbsp;&nbsp;</b>  </label>
-                            <input type="text" class="form-control" id="ID" name="id" disabled/>
-                            
-                            <span class="row mt-1"><b style="color:blue;">OR &nbsp;&nbsp;</b></span>
-                             
-                            <label for="email" class="mt-1"><b>Email / User Name: &nbsp;&nbsp;</b> </label>
-                            <input type="email" class="form-control" id="user" name="user" disabled>
                         
+                        <div class="row border mt-2 p-1 pt-3 rounded">
+                            <div class="input-group mb-3">
+                            
+                                <input type="checkbox" class="form-check-input mt-2" id="allCheck" checked>
+                                <label class="form-check-label mt-1" for="allCheck"><b>&nbsp;&nbsp; All People</b>&nbsp;&nbsp; </label>
+                                <span class="row mt-1"><b style="color:blue;">OR &nbsp;&nbsp;</b></span>
+                            
+                                <label for="ID" class="mt-1"><b>ID: &nbsp;&nbsp;</b>  </label>
+                                <input type="text" class="form-control" id="ID" name="id" disabled/>
+                            
+                                <span class="row mt-1"><b style="color:blue;">OR &nbsp;&nbsp;</b></span>
+                            
+                                <label for="email" class="mt-1"><b>Email / User Name: &nbsp;&nbsp;</b> </label>
+                                <input type="email" class="form-control" id="user" name="user" disabled>
+                            
+                            </div>
                         </div>
 
-                        <div class="input-group">
-                            <label for="datetime"><b>Start Date/Time:&nbsp;&nbsp;</b>   </label>
-                            <input id="datetime"  width="160" name="startDate" />&nbsp;&nbsp;
-                            <label for="datetime"><b>End Date/Time:&nbsp;&nbsp;</b>   </label>
-                            <input id="datetime2"  width="160" name="endDate" />
-                            &nbsp;&nbsp;
-                            <script>
-                                        
-                                let now = new Date();
-                                let hh = now.getHours().toString().padStart(2, '0');
-                                let mm = now.getMinutes().toString().padStart(2, '0');
-                                let dd = now.getDate().toString().padStart(2, '0');
-                                let mmIndex = now.getMonth() + 1;
-                                let mmStr = mmIndex.toString().padStart(2, '0');
-                                let yyyy = now.getFullYear().toString();
+                        <div class="row border mt-2 p-1 rounded justify-content-center">
 
-                                let formattedDate = `${hh}:${mm} ${mmStr}/${dd}/${yyyy}`;
+                            <div class="col-7">
+                                <div class="input-group">
+                                    <label for="datetime"><b>Start Date/Time:&nbsp;&nbsp;</b>   </label>
+                                    <input id="datetime"  width="160" name="startDate" />&nbsp;&nbsp;
+                                    <label for="datetime"><b>End Date/Time:&nbsp;&nbsp;</b>   </label>
+                                    <input id="datetime2"  width="160" name="endDate" />
+                                    &nbsp;&nbsp;
+                                    <script>
+                                
+                                        let now = new Date();
+                                        let hh = now.getHours().toString().padStart(2, '0');
+                                        let mm = now.getMinutes().toString().padStart(2, '0');
+                                        let dd = now.getDate().toString().padStart(2, '0');
+                                        let mmIndex = now.getMonth() + 1;
+                                        let mmStr = mmIndex.toString().padStart(2, '0');
+                                        let yyyy = now.getFullYear().toString();
+                                        let formattedDate = `${hh}:${mm} ${mmStr}/${dd}/${yyyy}`;
                                 
                                 
-
-                                $('#datetime').datetimepicker({ value: formattedDate });
-                                $('#datetime').datetimepicker({ uiLibrary: 'bootstrap', modal: true, footer: true });
-                                $('#datetime2').datetimepicker({ value: formattedDate });
-                                $('#datetime2').datetimepicker({ uiLibrary: 'bootstrap', modal: true, footer: true });
-
-
-
-                            </script>
-
+                                        $('#datetime').datetimepicker({ value: formattedDate });
+                                        $('#datetime').datetimepicker({ uiLibrary: 'bootstrap', modal: true, footer: true });
+                                        $('#datetime2').datetimepicker({ value: formattedDate });
+                                        $('#datetime2').datetimepicker({ uiLibrary: 'bootstrap', modal: true, footer: true });
+                                    </script>
+                                </div>
+                            </div>
                         </div>
-                        <div class="input-group m-1 ms-auto">
-                            <ul class="navbar-nav ms-auto ">
-                                <li class="nav-item">
-                                    <button  type="submit" onclick="filterClick(event)" class="btn btn-warning">Filter</button>
-                                    <button  type="button" class="btn border"   onclick="modaltest()">Reset</button>
-                                </li>
-                            </ul>
+                        <div class="row border mt-2 p-1 rounded">
+                            <div class="input-group m-1 ms-auto">
+                                <ul class="navbar-nav ms-auto ">
+                                    <li class="nav-item">
+                                        <button  type="submit" onclick="filterClick(event)" class="btn btn-warning">Filter</button>
+                                        <button  type="button" class="btn border"   onclick="modaltest()">Reset</button>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                         
                     </form>
@@ -181,10 +184,37 @@
             <div class="col m-5 d-flex justify-content-center align-items-center">
                 <div class="row" id="result">
                     <script>
-                        var deleteDialogShow(id)
                         var deleteClick = (id)=>{
-                           $('#dialogYesNo').modal('show')
-                            // if (document.getElementById(id).checked){
+
+                        if (document.getElementById(id).checked){
+
+                            $('#dialogYesNo').modal('show')
+                            $('#btn-delete-yes').off('click') //remove the previous click to avoid having two or more event!!
+                           $('#btn-delete-yes').on('click',()=>{
+                            window.alert(id)
+                           })
+                           $('#btn-delete-no').off('click')
+                           $('#btn-delete-no').on('click',()=>{
+                            $('#dialogYesNo').modal('hide')
+                           })
+
+                        }else{
+
+                            console.log("herrre")
+                            document.getElementById("selectAlert").classList.add('show')
+                            
+                            setTimeout(() => {
+                            
+                                document.getElementById("selectAlert").classList.remove("show")
+
+                            }, 2000);
+                        }
+                           
+
+                           
+                           
+                           
+                           // if (document.getElementById(id).checked){
                             //     window.alert(id)
                             // }
                             // else{
@@ -206,15 +236,24 @@
                             //console.log(selected)
                         }
                       </script>
-                    <table class="table" style="width:78vw ;">
+                    <table class="table table-striped" style="width:78vw ;">
 
                         <thead>
                                                         
                             <tr>
-                    
+                                
+                            
                                 <th scope="col" style="width: 10%;">Select</th>  
                                 <th scope="col" style="width: 30%;">Name</th>
+
+                                <div class="alert mt-1 d-flex alert-danger alert-dismissible fade" 
+                                style="position:absolute ;width:400px;left: calc((100vw - 400px)/2 )" role="alert" id="selectAlert">
+                                    First Select The Row ...
+                                </div>
+                                
+                    
                                 <th scope="col" style="width: 30%;">Date / Time</th>
+                                
                                 <th scope="col" style="width: 30%;">Registered By</th>
                                 <th scope="col" style="width: 30%;">Action</th>
                               
@@ -223,16 +262,23 @@
                           <tbody id="bodyOfList">
                             
                           </tbody>
+                          <!-- <tfoot>
+                            <button class="btn btn-outline-warning btn-sm btn-block " style="visibility: hidden;display: inline-block;" id="deleteSelected">
+                                <b>Delete Selected</b>
+                            </button>    
+                          </tfoot> -->
                         
 
                     </table>
 
                     <div class="row  border mt-2 p-1 rounded">
-                        <div class="col-3 ms-auto">
+                        <div class="col-3  ms-auto">
                         
+
                         <button class="btn btn-outline-warning btn-sm btn-block " style="visibility: hidden;display: inline-block;" id="deleteSelected">
                             <b>Delete Selected</b>
                         </button>
+
                         </div>
                     </div>
 
