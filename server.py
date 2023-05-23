@@ -4,7 +4,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import auth
 import requests
-from MongoCRUD import mongoDB_init,user_insert,userCheck,IDcheck,emailCheck,check_userPass,check_IDPass,getIDobjectById,getIDobjectByUser,sign_insert,query_signs
+from MongoCRUD import mongoDB_init,user_insert,userCheck,IDcheck,emailCheck,check_userPass,check_IDPass,getIDobjectById,getIDobjectByUser,sign_insert,query_signs,delete_sign
 from bson.objectid import ObjectId
 cred = credentials.Certificate("firebase-sdk.json")
 firebase_admin.initialize_app(cred)
@@ -236,6 +236,13 @@ def query_result():
     result = query_signs(id,start_date,end_date,1)
 
     return  render_template('queryResult.html',filterResult = result)
+@app.post("/delete_sign")
+def del_sign():
+    request_id = request.get_json(force=True)['id']
+    print(request_id)
+    r = delete_sign(request_id)
+    return jsonify({'result':r})
+        
 # @app.post("/testAPI")
 # def testAPI():
 #     # condition = request.form['condition']

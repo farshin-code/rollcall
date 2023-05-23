@@ -215,3 +215,16 @@ def query_signs(id,start_date,end_date,page_number):
 
         return list(return_value)
 
+def delete_sign(id):
+    # print(id)
+    # r = client.rollcall.signs.delete_one({"_id":ObjectId(id)}).deleted_count
+    # print(r)
+    # return r
+
+    try:
+        
+        client.rollcall.signs.delete_one({"_id":ObjectId(id)})
+        return 1
+    except Exception as e:
+        print('ERROR', str(e))
+        return str(e)

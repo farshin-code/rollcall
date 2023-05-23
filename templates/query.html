@@ -184,59 +184,9 @@
             <div class="col m-5 d-flex justify-content-center align-items-center">
                 <div class="row" id="result">
                     <script>
-                        var deleteClick = (id)=>{
-
-                        if (document.getElementById(id).checked){
-
-                            $('#dialogYesNo').modal('show')
-                            $('#btn-delete-yes').off('click') //remove the previous click to avoid having two or more event!!
-                           $('#btn-delete-yes').on('click',()=>{
-                            window.alert(id)
-                           })
-                           $('#btn-delete-no').off('click')
-                           $('#btn-delete-no').on('click',()=>{
-                            $('#dialogYesNo').modal('hide')
-                           })
-
-                        }else{
-
-                            console.log("herrre")
-                            document.getElementById("selectAlert").classList.add('show')
-                            
-                            setTimeout(() => {
-                            
-                                document.getElementById("selectAlert").classList.remove("show")
-
-                            }, 2000);
-                        }
-                           
-
-                           
-                           
-                           
-                           // if (document.getElementById(id).checked){
-                            //     window.alert(id)
-                            // }
-                            // else{
-                            //     window.alert("Select The Row to Confirm")
-                            // }
-                        }
-                        var selectChange=()=>{
-                            const checked = document.querySelectorAll('input[type="checkbox"]:checked')
-                            var selected = Array.from(checked).map(x=> x.id!='allCheck' ? x.id:null).filter(x => x!=null)
-                            if (selected.length >=2) {
-                                console.log(selected)
-                                document.getElementById('deleteSelected').style.visibility='visible'                                
-                            }
-                            else{
-                                console.log(selected)
-                                document.getElementById('deleteSelected').style.visibility='hidden'
-                                
-                            }
-                            //console.log(selected)
-                        }
+                        
                       </script>
-                    <table class="table table-striped" style="width:78vw ;">
+                    <table class="table table-striped" style="width:78vw ;"  id="tblResult">
 
                         <thead>
                                                         
@@ -298,6 +248,71 @@
     </div>
 
     <script>
+        var deleteClick = (id,rowNumber)=>{
+
+            if (document.getElementById(id).checked){
+
+                $('#dialogYesNo').modal('show')
+                $('#btn-delete-yes').off('click') //remove the previous click to avoid having two or more event!!
+                $('#btn-delete-yes').on('click',()=>{
+                
+                        var data={
+                            "id":id
+                        }
+                        fetch('http://127.0.0.1:5000/delete_sign' , {
+                            method:'POST',
+                            body : JSON.stringify(data)
+
+                        }).then(Response => Response.json()).then(result => {
+                            
+                            if (result['result']==1){
+                                $(`#${rowNumber}`).remove()
+                                $('#dialogYesNo').modal('hide')
+
+                            }
+                            else{
+                                window.alert(result)
+                            }
+                        }
+                            
+                        )
+
+                    
+                   })
+                $('#btn-delete-no').off('click')
+
+                $('#btn-delete-no').on('click',()=>{
+                    $('#dialogYesNo').modal('hide')
+                  })
+
+            }else{
+
+                console.log("herrre")
+                document.getElementById("selectAlert").classList.add('show')
+                
+                setTimeout(() => {
+                
+                    document.getElementById("selectAlert").classList.remove("show")
+
+                }, 2000);
+            }
+   
+        }
+   
+    var selectChange=()=>{
+        const checked = document.querySelectorAll('input[type="checkbox"]:checked')
+        var selected = Array.from(checked).map(x=> x.id!='allCheck' ? x.id:null).filter(x => x!=null)
+        if (selected.length >=2) {
+            console.log(selected)
+            document.getElementById('deleteSelected').style.visibility='visible'                                
+        }
+        else{
+            console.log(selected)
+            document.getElementById('deleteSelected').style.visibility='hidden'
+            
+        }
+    
+    }
 
         /////////////////////////////////////toggle 'disabled' 
         var user = document.getElementById("user")
@@ -341,25 +356,16 @@
             }
             else
             {
-            document.getElementById('user').value="";
-            document.getElementById("ID").value="";
+                document.getElementById('user').value="";
+                document.getElementById("ID").value="";
             
-            console.log("unchecked")
-            document.getElementById('user').disabled=false;
-            document.getElementById("ID").disabled=false;
+                console.log("unchecked")
+                document.getElementById('user').disabled=false;
+                document.getElementById("ID").disabled=false;
             }
         })
 
-        var modaltest=()=>{
-
-            $('#waitingModal').modal('show')
-             setTimeout(() => {
-            $('#waitingModal').modal('hide')    
-             }, 5000);
-            
-            
-        }
-
+        
         var filterClick = (event)=>{
 
 
